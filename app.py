@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 —
+import os
+
 from flask import Flask
 # reqparse 這方法可以讓我們限定，request 的參數一定要包含哪些
 # resource  呈現我們API 可以作的事情 (return, create... )，例如這理的resource 是 Item 所以可以呈現 新增item 取item...
@@ -25,7 +27,7 @@ app = Flask(__name__)
 # 告訴 app.py data base 在哪裡
 # 因此 SQLALCHEMY 將會去讀 同資料層級下的data.db
 # 補充 'sqlite:///data.db' 不見得需要是SQLite 換成MySQL 和 PostgreSQL 也可以work
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 
 # 必要:
 # SQLALCHEMY_TRACK_MODIFICATIONS ，如果设置成 True (默认情况)，Flask-SQLAlchemy 将会追踪对象的修改并且发送信号。这需要额外的内存， 如果不必要的可以禁用它。

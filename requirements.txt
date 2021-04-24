@@ -3,4 +3,4 @@ Flask
 Flask-RESTFUL
 Flask-JWT
 Flask-SQLAlchemy
-
+psycopg2
