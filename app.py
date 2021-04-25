@@ -27,7 +27,7 @@ app = Flask(__name__)
 # 告訴 app.py data base 在哪裡
 # 因此 SQLALCHEMY 將會去讀 同資料層級下的data.db
 # 補充 'sqlite:///data.db' 不見得需要是SQLite 換成MySQL 和 PostgreSQL 也可以work
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 
 # 必要:
 # SQLALCHEMY_TRACK_MODIFICATIONS ，如果设置成 True (默认情况)，Flask-SQLAlchemy 将会追踪对象的修改并且发送信号。这需要额外的内存， 如果不必要的可以禁用它。
@@ -38,8 +38,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'jose'
 api = Api(app)
-
-db.init_app(app)
 
 # @ 表示 decorator 函數
 # 底下這段表示，在接收第一個 request 執行之前(任何一個)，必須先執行def create_tables()，產生data.db
@@ -55,7 +53,6 @@ db.init_app(app)
 # Flask 的 decorator, 當第一個 request 發生前執行
 @app.before_first_request
 def create_tables():
-    print('HI~DB')
     db.create_all()
 
 jwt = JWT(app, authenticate, identity)  # 新增加 /auth 這個endpoint
@@ -70,5 +67,6 @@ api.add_resource(UserRegister, '/register')
 if __name__ == '__main__':
     # # 這裡特別注意，要import 在這裡，因為如果 import 在最上面
     # # 當之後我們的Item 物件也需要import db 時，將造成無限import問題
+    db.init_app(app)
     app.run(port=5000, debug=True)
 
