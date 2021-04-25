@@ -24,3 +24,7 @@ if uri.startswith("postgres://"):
 https://help.heroku.com/ZKNTJQSK/why-is-sqlalchemy-1-4-x-not-connecting-to-heroku-postgres
 
 
+3. Seciton 11
+
+使用 @jwt_required 將會出錯 
+因為 Flask-JWT-Extended 在 4.0.0 版 將  @jwt_required  改為 @jwt_required()
