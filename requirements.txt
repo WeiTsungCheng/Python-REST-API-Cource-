@@ -1,5 +1,5 @@
+SQLAlchemy==1.4.7
 gunicorn
-SQLAlchemy
 Flask
 Flask-RESTFUL
 Flask-JWT
