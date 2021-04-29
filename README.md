@@ -1,7 +1,9 @@
 # Python-REST-API-Cource-
 
 Udemy 課程 https://www.udemy.com/course/rest-api-flask-and-python
+課程線上文件: https://arac.tecladocode.com/
 
+有上傳 heroku 進行操作
 
 1. Section 6 ok
 2. Section 8 使用 heroku postgres sql 出現 heroku 出現 H13錯誤 503.
